@@ -2,7 +2,7 @@ import React, {ChangeEvent} from "react";
 import {FilterValuesType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
-import {Button, IconButton} from "@mui/material";
+import {Button, Checkbox, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 
 
@@ -43,14 +43,14 @@ export function TodoList(props: PropsType) {
 
     return (
         <div>
-            <h3>
+            <h3 style={{paddingLeft: "5px"}}>
                 <EditableSpan title={props.title} onChange={changeTodolistTitle}/>
                 <IconButton onClick={removeTodolist}>
                     <Delete/>
                 </IconButton>
             </h3>
             <AddItemForm addItem={addTask}/>
-            <ul>
+            <div>
                 {
                     props.tasks.map(t => {
                             const onRemoveHandler = () => props.removeTask(t.id, props.id);
@@ -61,20 +61,18 @@ export function TodoList(props: PropsType) {
                                 props.changeTaskTitle(t.id, newValue, props.id);
                             }
                             return (
-                                <li key={t.id} className={t.isDone ? "is-done" : ""}>
-                                    <input type="checkbox"
-                                           checked={t.isDone}
-                                           onChange={onChangeStatusHandler}/>
+                                <div key={t.id} className={t.isDone ? "is-done" : ""} style={{padding: "2px"}}>
+                                    <Checkbox checked={t.isDone} onChange={onChangeStatusHandler}/>
                                     <EditableSpan title={t.title} onChange={onChangeTitleHandler}/>
                                     <IconButton onClick={onRemoveHandler} size="small">
                                         <Delete fontSize="inherit" />
                                     </IconButton>
-                                </li>
+                                </div>
                             )
                         }
                     )
                 }
-            </ul>
+            </div>
             <div>
                 <Button variant={props.filter === "all" ? "contained" : "text"} onClick={onAllClickHandler}>All
                 </Button>
