@@ -32,7 +32,7 @@ export function AddItemForm(props: AddItemFormPropsType) {
     return (
         <div>
             <TextField
-                id="outlined-basic" label="Title" variant="outlined"
+                label="Title" variant="outlined"
                 value={newTaskTitle}
                 onChange={onNewTitleChangeHandler}
                 // onKeyDown={onKeyPressHandler}
