@@ -33,37 +33,37 @@ function AppWithRedux() {
     const removeTask = useCallback((id: string, todolistId: string) => {
         const action = removeTaskAC(id, todolistId);
         dispatch(action);
-    }, []);
+    }, [dispatch]);
     const addTask = useCallback((title: string, todolistId: string) => {
         const action = addTaskAC(title, todolistId);
         dispatch(action);
-    }, []);
+    }, [dispatch]);
     const changeStatus = useCallback((taskId: string, isDone: boolean, todolistId: string) => {
         const action = changeTaskStatusAC(taskId, isDone, todolistId);
         dispatch(action);
-    }, []);
+    }, [dispatch]);
     const changeTaskTitle = useCallback((taskId: string, newValue: string, todolistId: string) => {
         const action = changeTaskTitleAC(taskId, newValue, todolistId);
         dispatch(action);
-    }, []);
+    }, [dispatch]);
 
     //todolist functions
     const changeFilter = useCallback((value: FilterValuesType, todolistId: string) => {
         const action = changeTodolistFilterAC(todolistId, value);
         dispatch(action);
-    }, []);
+    }, [dispatch]);
     const removeTodolist = useCallback((todolistId: string) => {
         const action = removeTodolistAC(todolistId);
         dispatch(action);
-    }, []);
+    }, [dispatch]);
     const changeTodolistTitle = useCallback((todolistId: string, newTitle: string) => {
         const action = changeTodolistTitleAC(todolistId, newTitle);
         dispatch(action);
-    }, []);
+    }, [dispatch]);
     const addTodolist = useCallback((title: string) => {
         const action = addTodolistAC(title);
         dispatch(action);
-    }, []);
+    }, [dispatch]);
 
     const todolists = useSelector<AppRootState, Array<TodolistType>>(state => state.todolists)
     const tasks = useSelector<AppRootState, TasksStateType>(state => state.tasks)
@@ -73,13 +73,7 @@ function AppWithRedux() {
             <AppBar position="static">
 
                 <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{mr: 2}}
-                    >
+                    <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{mr: 2}}>
                         <Menu/>
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
@@ -98,7 +92,6 @@ function AppWithRedux() {
                         todolists.map((tl) => {
                             let allTodolistTasks = tasks[tl.id];
                             let tasksForTodolist = allTodolistTasks;
-
 
                             return (
                                 <Grid item key={tl.id}>
