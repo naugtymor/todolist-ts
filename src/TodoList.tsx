@@ -26,7 +26,7 @@ export type TaskType = {
     isDone: boolean;
 }
 
-export function TodoList(props: PropsType) {
+export const TodoList = React.memo(function (props: PropsType) {
     console.log('Todolist is called')
 
 
@@ -42,7 +42,14 @@ export function TodoList(props: PropsType) {
         props.addTask(title, props.id)
     }, []);
 
+    let tasksForTodolist = props.tasks;
 
+    if (props.filter === "completed") {
+        tasksForTodolist = props.tasks.filter(t => t.isDone)
+    }
+    if (props.filter === "active") {
+        tasksForTodolist = props.tasks.filter(t => !t.isDone)
+    }
     return (
         <div>
             <h3 style={{paddingLeft: "5px"}}>
@@ -87,5 +94,5 @@ export function TodoList(props: PropsType) {
             </div>
         </div>
     )
-}
+});
 
