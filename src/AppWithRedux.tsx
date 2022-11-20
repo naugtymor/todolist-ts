@@ -1,7 +1,6 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './App.css';
 import {TaskType, TodoList} from "./TodoList";
-
 import {networkInterfaces} from "os";
 import {AddItemForm} from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
@@ -28,7 +27,7 @@ export type TasksStateType = {
 
 
 function AppWithRedux() {
-
+    console.log("App is called")
     const dispatch = useDispatch()
     //tasks functions
     function removeTask(id: string, todolistId: string) {
@@ -61,10 +60,10 @@ function AppWithRedux() {
         const action = changeTodolistTitleAC(todolistId, newTitle);
         dispatch(action);
     }
-    function addTodolist(title: string) {
+    const addTodolist = useCallback((title: string) => {
         const action = addTodolistAC(title);
         dispatch(action);
-    }
+    }, []);
 
     const todolists = useSelector<AppRootState, Array<TodolistType>>(state => state.todolists)
     const tasks = useSelector<AppRootState, TasksStateType>(state => state.tasks)

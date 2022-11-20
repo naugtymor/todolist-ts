@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useCallback} from "react";
 import {FilterValuesType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
@@ -27,6 +27,8 @@ export type TaskType = {
 }
 
 export function TodoList(props: PropsType) {
+    console.log('Todolist is called')
+
 
     const onAllClickHandler = () => props.changeFilter("all", props.id);
     const onActiveClickHandler = () => props.changeFilter("active", props.id);
@@ -36,9 +38,9 @@ export function TodoList(props: PropsType) {
         props.changeTodolistTitle(props.id, newTitle)
     };
 
-    const addTask = (title: string) => {
+    const addTask = useCallback ((title: string) => {
         props.addTask(title, props.id)
-    }
+    }, []);
 
 
     return (
