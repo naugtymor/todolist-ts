@@ -9,9 +9,6 @@ export default {
     decorators: [ReduxStoreProviderDecorator]
 }
 
-const changeCallback = action("Title changed");
-
-
 export const AppWithReduxBaseExample = () => {
     return <AppWithRedux/>
 }
