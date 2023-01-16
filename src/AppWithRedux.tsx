@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import {TaskType, TodoList} from "./TodoList";
 import {networkInterfaces} from "os";
@@ -9,11 +9,12 @@ import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC,
-    removeTodolistAC,
+    removeTodolistAC, setTodolistsAC,
 } from "./state/todolists-reducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./state/store";
+import {todolistAPI} from "./api/todolist-api";
 
 export type FilterValuesType = "all" | "completed" | "active";
 export type TodolistType = {
@@ -27,6 +28,16 @@ export type TasksStateType = {
 
 
 function AppWithRedux() {
+
+    useEffect(() => {
+        todolistAPI.getTodolist()
+            .then((res) => {
+                debugger
+                let todos = res.data
+                dispatch(setTodolistsAC(todos))
+            })
+    },[])
+
     console.log("App is called")
     const dispatch = useDispatch()
     //tasks functions
@@ -71,7 +82,6 @@ function AppWithRedux() {
     return (
         <div className="App">
             <AppBar position="static">
-
                 <Toolbar>
                     <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{mr: 2}}>
                         <Menu/>
@@ -81,7 +91,6 @@ function AppWithRedux() {
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
-
             </AppBar>
             <Container fixed>
                 <Grid container style={{padding: "20px"}}>
