@@ -20,12 +20,13 @@ export type FilterValuesType = "all" | "completed" | "active";
 export type TodolistType = {
     id: string;
     title: string;
-    filter: FilterValuesType;
+    filter?: FilterValuesType;
+    addedDate?: string
+    order?: number
 }
 export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
-
 
 function AppWithRedux() {
 
